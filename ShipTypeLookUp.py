@@ -1,17 +1,46 @@
-shortNames = ["DD", "DE", "CL", "CT", "CLT", "CA", "CAV", "BB", "BBV", "FBB", "CVL", "CV", "CVB", "SSV", "SS", "AV", "AS", "LHA", "AO", "AR"]
-fullNames = ["Destroyer", "Coastal Defense Ship", "Light Cruiser", "Training Cruiser", "Torpedo Cruiser", "Heavy Cruiser", "Aviation Cruiser", "Battleship", "Aviation Battleship", "Fast Battleship", "Light Aircraft Carrier", "Regular Aircraft Carrier", "Armored Aircraft Carrier", "Submarine Aircraft Carrier", "Submarine", "Seaplane Tender", "Submarine Tender", "Amphibious Assault Ship", "Fleet Oiler", "Repair Ship"]
-keepGoing = True
+import os
+if os.name == "nt":
+    import ctypes
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID('Ship Type LookUp')
 
-while keepGoing:
-    inp = str(input("Enter the Short Name for the ship type (enter Q to quit)> "))
-    if inp.upper() == "Q":
-        keepGoing = False
-    else:
-        i = 0
-        while i < len(shortNames):
-            if inp.upper() == shortNames[i]:
-                print(fullNames[i] + "\n")
-                break
-            i = i + 1
-        if i >= len(shortNames):
-            print("Not Found\n")
+shipNames = {
+    "DD": "Destroyer", 
+    "DE": "Coastal Defense Ship",
+    "CL": "Light Cruiser",
+    "CT": "Training Cruiser",
+    "CLT": "Torpedo Cruiser",
+    "CA": "Heavy Cruiser",
+    "CAV": "Aviation Cruiser",
+    "BB": "Battleship",
+    "BBV": "Aviation Battleship",
+    "FBB": "Fast Battleship",
+    "CVL": "Light Aircraft Carrier",
+    "CV": "Regular Aircraft Carrier",
+    "CVB": "Armored Aircraft Carrier",
+    "SSV": "Submarine Aircraft Carrier",
+    "SS": "Submarine",
+    "AV": "Seaplane Tender",
+    "AS": "Submarine Tender",
+    "LHA": "Amphibious Assault Ship",
+    "AO": "Fleet Oiler",
+    "AR": "Repair Ship"
+}
+
+if __name__ == "__main__":
+    keepGoing = True
+
+    while keepGoing:
+        inp = str(input("Enter the Short or Long Name for the ship type (enter Q to quit)> "))
+        if inp.upper() == "Q":
+            keepGoing = False
+        else:
+            try:
+                if len(inp) > 3:
+                    print("{}".format(
+                        list(shipNames.keys())[list(shipNames.values()).index(inp.title())]
+                    ))
+                    pass
+                else:
+                    print("{}".format(shipNames[inp.upper()]))
+            except Exception:
+                print("Not Found\n")
