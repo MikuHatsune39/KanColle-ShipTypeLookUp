@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 if os.name == "nt":
     import ctypes
@@ -36,11 +37,11 @@ if __name__ == "__main__":
         else:
             try:
                 if len(inp) > 3:
-                    print("{}".format(
+                    print("{}\n".format(
                         list(shipNames.keys())[list(shipNames.values()).index(inp.title())]
                     ))
                     pass
                 else:
-                    print("{}".format(shipNames[inp.upper()]))
+                    print("{}\n".format(shipNames[inp.upper()]))
             except Exception:
                 print("Not Found\n")
